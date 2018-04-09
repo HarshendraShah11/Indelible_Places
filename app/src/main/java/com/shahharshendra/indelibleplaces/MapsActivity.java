@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,7 +25,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
     private GoogleMap mMap;
 
@@ -90,7 +99,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
+
+        mMap.setOnMapLongClickListener(this);
 
         Intent intent = getIntent();
 
@@ -152,6 +164,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
         }
+
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+        String address = "";
+
+        try {
+
+            List<Address> addressList =geocoder.getFromLocation(latLng.latitude, latLng.longitude,1);
+
+            if (addressList != null && addressList.size() > 0) {
+
+                if (addressList.get(0).getThoroughfare() != null) {
+
+                    if (addressList.get(0).getSubThoroughfare() != null) {
+
+                        address += addressList.get(0).getSubThoroughfare() +  " ";
+
+                    }
+
+                    address += addressList.get(0).getThoroughfare();
+
+                }
+
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+        if (address == "") {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm yyyymmdd");
+            String currentDateAndTime = sdf.format(new Date());
+
+        }
+
+        mMap.addMarker(new MarkerOptions().position(latLng).title(address));
+
 
     }
 }
