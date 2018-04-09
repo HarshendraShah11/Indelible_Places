@@ -45,7 +45,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
+
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            centerMapOnLocation(lastKnownLocation,"Your Location");
 
         }
     }
@@ -56,7 +61,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.clear();
 
-        mMap.addMarker(new MarkerOptions().position(userLocation).title(title));
+        if (title != "Your Location") {
+            mMap.addMarker(new MarkerOptions().position(userLocation).title(title));
+        }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10));
     }
