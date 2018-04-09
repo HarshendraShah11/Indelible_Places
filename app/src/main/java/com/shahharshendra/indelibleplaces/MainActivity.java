@@ -1,5 +1,6 @@
 package com.shahharshendra.indelibleplaces;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(MainActivity.this, position , Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                intent.putExtra("placeNumber", position);
+
+                startActivity(intent);
             }
         });
     }
