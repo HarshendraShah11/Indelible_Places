@@ -209,6 +209,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.addMarker(new MarkerOptions().position(latLng).title(address));
 
+        MainActivity.places.add(address);
+        MainActivity.locations.add(latLng);
+
+        MainActivity.adapter.notifyDataSetChanged();
+
+        Toast.makeText(this, "Location Saved", Toast.LENGTH_SHORT).show();
 
     }
 }
