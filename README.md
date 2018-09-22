@@ -6,10 +6,10 @@ This app allows the user to save his/her Memorable or Indelible Places using Goo
 1. Download **[Android Studio](https://developer.android.com/studio/index.html)** from the Google Developers site or using this [link](https://developer.android.com/studio/index.html). 
 2. Install the file to your pc. 
 3. Download the required **SDK(Standard Development Kit) Tools** . 
-4. **[Clone the repository](https://github.com/HarshendraShah11/Indelible_Places.git)** from : "https://github.com/HarshendraShah11/Indelible_Places.git" . 
+4. **[Clone the repository](https://github.com/harshendrashah/Indelible_Places.git)** from : "https://github.com/harshendrashah/Indelible_Places.git" . 
     
    `bash 
-    git clone --recursive https://github.com/HarshendraShah11/Indelible_Places.git 
+    git clone --recursive https://github.com/harshendrashah/Indelible_Places.git 
     ` 
 5. Open the project in Android Studio. 
 6. For launching the project you can either : 
